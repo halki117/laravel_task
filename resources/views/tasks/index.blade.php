@@ -25,9 +25,10 @@
           <td>{{ $key }}</td>
           <td>{{ $task->comment }}</td>
           <td>
-            @if ($task->status === 'doing')
+            @if ($task->status === 0)
               <button>作業中</button>
-            @else
+            @endif
+            @if ($task->status === 1)
               <button>完了</button>
             @endif
             <button>削除</button>
@@ -46,6 +47,9 @@
     <input type="text" name="comment" >
     <input type="submit" value="追加" >
   </form>
-    
+
+  @if($errors->has('comment')) <span class="text-danger">{{ $errors->first('comment') }}</span> @endif
+  
+  
 @endsection
 

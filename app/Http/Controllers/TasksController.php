@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Task;
 
+use App\Http\Requests\TaskRequest;
+
 class TasksController extends Controller
 {
     public function index() {
@@ -13,7 +15,7 @@ class TasksController extends Controller
         return view('tasks.index')->with('tasks', $tasks);
     }
 
-    public function store(Request $request) {
+    public function store(TaskRequest $request) {
         $task = new Task;
         $task->comment = $request->comment;
         $task->save();

@@ -21,4 +21,10 @@ class TasksController extends Controller
         $task->save();
         return redirect(route('tasks.index'));
     }
+
+    public function destroy(Request $request) {
+        $task = Task::find($request->id);
+        $task->delete();
+        return redirect(route('tasks.index'));
+    }
 }

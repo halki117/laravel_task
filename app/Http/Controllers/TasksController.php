@@ -28,4 +28,15 @@ class TasksController extends Controller
         $task->delete();
         return redirect(route('tasks.index'));
     }
+
+    public function update($id) {
+        $task = Task::find($id);
+        if($task->status === 0) {
+            $task->status = 1;
+        } else {
+            $task->status = 0;
+        }
+        $task->update();
+        return redirect(route('tasks.index'));
+    }
 }

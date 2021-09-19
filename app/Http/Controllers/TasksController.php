@@ -11,8 +11,24 @@ use App\Http\Requests\TaskRequest;
 class TasksController extends Controller
 {
     public function index() {
+       
+        // ラジオボタンが押された時（localhost/tasks?range=0 の様にurlにパラメータが付く時）の処理をif文内に書く
+        if($_GET) {
+            $range = $_GET['range'];
+
+            if ($range === "0") {
+                $tasks = Task::all();
+            } elseif ($range === "1") {
+                $tasks = Task::where('status', 0)->get();
+            } else {
+                $tasks = Task::where('status', 1)->get();
+            }
+            return view('tasks.index', compact('tasks', 'range'));
+        }
+
+        // localhost/tasks でアクセスした際の処理
         $tasks = Task::all();
-        return view('tasks.index')->with('tasks', $tasks);
+        return view('tasks.index', compact('tasks'));
     }
 
     public function store(TaskRequest $request) {

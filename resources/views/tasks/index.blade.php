@@ -31,7 +31,11 @@
             @if ($task->status === 1)
               <button>完了</button>
             @endif
-            <button>削除</button>
+            <form action="{{ route('tasks.destroy', $task->id) }}" method="post" style="display:inline;">
+              @csrf
+              <button type="submit" name="id" value="{{ $task->id }}">削除</button>
+              {{ method_field('delete') }}
+            </form>
           </td>
         </tr>
       </tbody>
@@ -52,4 +56,3 @@
   
   
 @endsection
-

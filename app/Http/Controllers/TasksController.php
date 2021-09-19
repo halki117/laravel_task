@@ -21,4 +21,11 @@ class TasksController extends Controller
         $task->save();
         return redirect(route('tasks.index'));
     }
+
+    // URI tasks/{task} の{task}パラメーターを$idとして受け取っているが変数名は任意でよい
+    public function destroy($id) {
+        $task = Task::find($id);
+        $task->delete();
+        return redirect(route('tasks.index'));
+    }
 }

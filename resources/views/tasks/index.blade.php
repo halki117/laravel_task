@@ -25,12 +25,17 @@
           <td>{{ $key }}</td>
           <td>{{ $task->comment }}</td>
           <td>
-            @if ($task->status === 0)
-              <button>作業中</button>
-            @endif
-            @if ($task->status === 1)
-              <button>完了</button>
-            @endif
+            <form action="{{ route('tasks.update', $task->id) }}" method="post" style="display: inline;">
+              @csrf
+              @if ($task->status === 0)
+                <button type="submit">作業中</button>
+              @endif
+              @if ($task->status === 1)
+                <button type="submit">完了</button>
+              @endif
+              {{ method_field('put') }}
+            </form>
+            
             <form action="{{ route('tasks.destroy', $task->id) }}" method="post" style="display:inline;">
               @csrf
               <button type="submit" name="id" value="{{ $task->id }}">削除</button>

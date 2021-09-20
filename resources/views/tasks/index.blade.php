@@ -3,11 +3,20 @@
 @section('content')
 
   <h1>ToDoリスト</h1>
-
-  <input type="radio" name="status" value="all">全て
-  <input type="radio" name="status" value="all">作業中
-  <input type="radio" name="status" value="all">完了
-
+  {{-- ラジオボタンを押した際に tasksコントローラのindexアクションを作動させる、その際にurlに localhost/tasks?range=0 の様にパラメータを付与する --}}
+  {{-- issetで変数自体の存在確認をおこなっている。 --}}
+  @if (isset( $range ))
+  {{-- localhost/tasks?range=0 の様にurlにgetパラメータが存在する状態でアクセスした場合はこちらを表示する --}}
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 0]) }}'" @if ($range === "0") checked @endif >全て
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 1]) }}'" @if ($range === "1") checked @endif>作業中
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 2]) }}'" @if ($range === "2") checked @endif>完了
+  @else
+  {{-- localhost/tasks の様にurlにgetパラメータが存在しない状態でアクセスした場合はこちらを表示する --}}
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 0]) }}'" >全て
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 1]) }}'" >作業中
+    <input type="radio" name="range" onclick="location.href='{{ route('tasks.index', ['range' => 2]) }}'" >完了
+  @endif
+      
   <table class="tasks_container">
     @php
       $key = 0 
